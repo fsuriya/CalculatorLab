@@ -17,7 +17,10 @@ namespace CPE200Lab1
         private bool isAfterOperater;
         private bool isAfterEqual;
         private string firstOperand;
+        private string secondOperand;   //add secondOperand
         private string operate;
+        public CalculatorEngine engine; //add engine Calculator
+        public string FristOperate;
 
         private void resetAll()
         {
@@ -28,50 +31,13 @@ namespace CPE200Lab1
             isAfterEqual = false;
         }
 
-        private string calculate(string operate, string firstOperand, string secondOperand, int maxOutputSize = 8)
-        {
-            switch(operate)
-            {
-                case "+":
-                    return (Convert.ToDouble(firstOperand) + Convert.ToDouble(secondOperand)).ToString();
-                case "-":
-                    return (Convert.ToDouble(firstOperand) - Convert.ToDouble(secondOperand)).ToString();
-                case "X":
-                    return (Convert.ToDouble(firstOperand) * Convert.ToDouble(secondOperand)).ToString();
-                case "÷":
-                    // Not allow devide be zero
-                    if(secondOperand != "0")
-                    {
-                        double result;
-                        string[] parts;
-                        int remainLength;
-
-                        result = (Convert.ToDouble(firstOperand) / Convert.ToDouble(secondOperand));
-                        // split between integer part and fractional part
-                        parts = result.ToString().Split('.');
-                        // if integer part length is already break max output, return error
-                        if(parts[0].Length > maxOutputSize)
-                        {
-                            return "E";
-                        }
-                        // calculate remaining space for fractional part.
-                        remainLength = maxOutputSize - parts[0].Length - 1;
-                        // trim the fractional part gracefully. =
-                        return result.ToString("N" + remainLength);
-                    }
-                    break;
-                case "%":
-                    //your code here
-                    break;
-            }
-            return "E";
-        }
-
         public MainForm()
         {
             InitializeComponent();
 
             resetAll();
+            engine = new CalculatorEngine();
+            engine.calculate(operate, firstOperand, secondOperand, FristOperate);
         }
 
         private void btnNumber_Click(object sender, EventArgs e)
@@ -113,6 +79,10 @@ namespace CPE200Lab1
                 return;
             }
             operate = ((Button)sender).Text;
+            if(operate == "+" || operate == "-" || operate == "X" || operate == "÷")
+            {
+                FristOperate = operate;
+            }
             switch (operate)
             {
                 case "+":
@@ -121,12 +91,27 @@ namespace CPE200Lab1
                 case "÷":
                     firstOperand = lblDisplay.Text;
                     isAfterOperater = true;
+                    hasDot = false;  //edit dot in secondOperand
                     break;
                 case "%":
                     // your code here
+                    secondOperand = lblDisplay.Text;
                     break;
             }
             isAllowBack = false;
+        }
+
+        private void btnSpecialSign_Click(object sender, EventArgs e)
+        {
+
+            if (((Button)sender).Text== "√")
+            {
+                lblDisplay.Text = (Math.Sqrt(Convert.ToDouble(lblDisplay.Text))).ToString();
+            }
+            else if(((Button)sender).Text == "1/x")
+            {
+                lblDisplay.Text = (1 / Convert.ToDouble(lblDisplay.Text)).ToString();
+            }
         }
 
         private void btnEqual_Click(object sender, EventArgs e)
@@ -136,7 +121,7 @@ namespace CPE200Lab1
                 return;
             }
             string secondOperand = lblDisplay.Text;
-            string result = calculate(operate, firstOperand, secondOperand);
+            string result = engine.calculate(operate, firstOperand, secondOperand, FristOperate);
             if (result is "E" || result.Length > 8)
             {
                 lblDisplay.Text = "Error";
