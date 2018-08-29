@@ -17,10 +17,11 @@ namespace CPE200Lab1
         private bool isAfterOperater;
         private bool isAfterEqual;
         private string firstOperand;
-        private string secondOperand;   //add secondOperand
+        private string secondOperand;   //add secondOperand for store
         private string operate;
-        public CalculatorEngine engine; //add engine Calculator
-        public string FristOperate;
+        public CalculatorEngine engine; //add engine Calculator for call CalculatorEngine.cs
+        public string FristOperate;     //for store +, -, * and / Operate
+        public string memoryStoreNumber;//for store number
 
         private void resetAll()
         {
@@ -79,7 +80,7 @@ namespace CPE200Lab1
                 return;
             }
             operate = ((Button)sender).Text;
-            if(operate == "+" || operate == "-" || operate == "X" || operate == "÷")
+            if(operate == "+" || operate == "-" || operate == "X" || operate == "÷") //this line for percentage
             {
                 FristOperate = operate;
             }
@@ -103,14 +104,36 @@ namespace CPE200Lab1
 
         private void btnSpecialSign_Click(object sender, EventArgs e)
         {
-
-            if (((Button)sender).Text== "√")
+            string button = ((Button)sender).Text;
+            string temp;
+            switch (button)
             {
-                lblDisplay.Text = (Math.Sqrt(Convert.ToDouble(lblDisplay.Text))).ToString();
-            }
-            else if(((Button)sender).Text == "1/x")
-            {
-                lblDisplay.Text = (1 / Convert.ToDouble(lblDisplay.Text)).ToString();
+                case "√":
+                    lblDisplay.Text = (Math.Sqrt(Convert.ToDouble(lblDisplay.Text))).ToString();
+                    break;
+                case "1/x":
+                    lblDisplay.Text = (1 / Convert.ToDouble(lblDisplay.Text)).ToString();
+                    break;
+                case "MC":
+                    memoryStoreNumber = null;
+                    break;
+                case "MR":
+                    lblDisplay.Text = memoryStoreNumber;
+                    break;
+                case "MS":
+                    memoryStoreNumber = lblDisplay.Text;
+                    break;
+                case "M+":
+                    temp = (Convert.ToDouble(memoryStoreNumber) + Convert.ToDouble(lblDisplay.Text)).ToString();
+                    memoryStoreNumber = temp;
+                    break;
+                case "M-":
+                    temp = (Convert.ToDouble(memoryStoreNumber) - Convert.ToDouble(lblDisplay.Text)).ToString();
+                    memoryStoreNumber = temp;
+                    break;
+                case "CE":
+                    lblDisplay.Text = "0";
+                    break;
             }
         }
 
