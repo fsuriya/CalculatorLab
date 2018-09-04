@@ -98,6 +98,14 @@ namespace CPE200Lab1
                     // your code here
                     secondOperand = lblDisplay.Text;
                     break;
+                case "√":
+                    secondOperand = lblDisplay.Text;
+                    lblDisplay.Text = engine.calculate(operate, firstOperand, secondOperand, FristOperate);
+                    break;
+                case "1/x":
+                    secondOperand = lblDisplay.Text;
+                    lblDisplay.Text = engine.calculate(operate, firstOperand, secondOperand, FristOperate);
+                    break;
             }
             isAllowBack = false;
         }
@@ -108,12 +116,6 @@ namespace CPE200Lab1
             string temp;
             switch (button)
             {
-                case "√":
-                    lblDisplay.Text = (Math.Sqrt(Convert.ToDouble(lblDisplay.Text))).ToString();
-                    break;
-                case "1/x":
-                    lblDisplay.Text = (1 / Convert.ToDouble(lblDisplay.Text)).ToString();
-                    break;
                 case "MC":
                     memoryStoreNumber = null;
                     break;

@@ -63,6 +63,12 @@ namespace CPE200Lab1
                         return (Convert.ToDouble(firstOperand) / Convert.ToDouble(secondOperand)).ToString();
                     }
                     break;
+                case "√":
+                        return (Math.Sqrt(Convert.ToDouble(secondOperand))).ToString();
+                    break;
+                case "1/x":
+                        return (1 / Convert.ToDouble(secondOperand)).ToString();
+                    break;
             }
             return "E";
         }
