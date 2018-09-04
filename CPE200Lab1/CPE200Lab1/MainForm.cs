@@ -95,7 +95,6 @@ namespace CPE200Lab1
                     hasDot = false;  //edit dot in secondOperand
                     break;
                 case "%":
-                    // your code here
                     secondOperand = lblDisplay.Text;
                     break;
                 case "√":
