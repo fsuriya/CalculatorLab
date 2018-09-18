@@ -26,7 +26,7 @@ namespace CPE200Lab1
             //engine = new CalculatorEngine();
             engine = new RPNCalculatorEngine();
         }
-
+      
         private bool isOperator(char ch)
         {
             switch(ch) {
