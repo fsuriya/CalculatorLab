@@ -15,7 +15,6 @@ namespace CPE200Lab1
         private bool isNumberPart = false;
         private bool isContainDot = false;
         private bool isSpaceAllowed = false;
-        //private CalculatorEngine engine;
         private RPNCalculatorEngine engine;
         private double memory;
         private bool isAfterOperater;
@@ -23,7 +22,6 @@ namespace CPE200Lab1
         public ExtendForm()
         {
             InitializeComponent();
-            //engine = new CalculatorEngine();
             engine = new RPNCalculatorEngine();
         }
       

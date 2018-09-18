@@ -49,8 +49,15 @@ namespace CPE200Lab1
                         double result;
                         string[] parts;
                         int remainLength;
-
-                        result = Math.Sqrt(Convert.ToDouble(operand));
+                        if (Convert.ToDouble(operand) >= 0)
+                        {
+                            result = Math.Sqrt(Convert.ToDouble(operand));
+                        }
+                        else
+                        {
+                            return "E";
+                        }
+                        
                         // split between integer part and fractional part
                         parts = result.ToString().Split('.');
                         // if integer part length is already break max output, return error
@@ -69,8 +76,15 @@ namespace CPE200Lab1
                         double result;
                         string[] parts;
                         int remainLength;
+                        try
+                        {
+                            result = (1.0 / Convert.ToDouble(operand));
+                        }
+                        catch (Exception)
+                        {
+                            return "E";
+                        }
 
-                        result = (1.0 / Convert.ToDouble(operand));
                         // split between integer part and fractional part
                         parts = result.ToString().Split('.');
                         // if integer part length is already break max output, return error
@@ -100,7 +114,6 @@ namespace CPE200Lab1
                 case "X":
                     return (Convert.ToDouble(firstOperand) * Convert.ToDouble(secondOperand)).ToString();
                 case "÷":
-                    // Not allow devide be zero
                     if (secondOperand != "0")
                     {
                         double result;

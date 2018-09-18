@@ -19,12 +19,16 @@ namespace CPE200Lab1
             {
                 if (isOperator(number))
                 {
-                    if (Stacknumber.Count < 2)
+                    try
+                    {
+                        first = Stacknumber.Pop();
+                        second = Stacknumber.Pop();
+                    }
+                    catch (InvalidOperationException)
                     {
                         return "E";
                     }
-                    first = Stacknumber.Pop();
-                    second = Stacknumber.Pop();
+                    
                     Stacknumber.Push(calculate(number, second, first));
 
                 }
