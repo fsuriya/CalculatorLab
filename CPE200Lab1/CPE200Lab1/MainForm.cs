@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CPE200Lab1
-{
+{//rakpong kak
     public partial class MainForm : Form
     {
         private bool hasDot;
