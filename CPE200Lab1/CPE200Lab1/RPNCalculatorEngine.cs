@@ -6,78 +6,79 @@ using System.Threading.Tasks;
 
 namespace CPE200Lab1
 {
-    public class RPNCalculatorEngine :CalculatorEngine
+    public class RPNCalculatorEngine : TheCalculatorEngine
     {
+        protected Stack<string> myStack;
         public string Process(string str)
         {
-            Stack<string> Stacknumber = new Stack<string>();
+            myStack = new Stack<string>();
             string[] parts = str.Split(' ');
             string first, second;
 
-            foreach (string number in parts)
+            foreach (string oper in parts)
             {
-                if (isOperator(number))
+                if (isOperator(oper))
                 {
                     try
                     {
-                        first = Stacknumber.Pop();
-                        second = Stacknumber.Pop();
+                        first = myStack.Pop();
+                        second = myStack.Pop();
                     }
                     catch (InvalidOperationException)
                     {
                         return "E";
                     }
-                    Stacknumber.Push(calculate(number, second, first));
+                    myStack.Push(calculate(oper, second, first));
                 }
-                else if (isNumber(number))
+                else if (isNumber(oper))
                 {
-                    Stacknumber.Push(number);
+                    myStack.Push(oper);
                 }
-                else if (number == "1/x")
+                else if (oper == "1/x")
                 {
                     try
                     {
-                        first = Stacknumber.Pop();
+                        first = myStack.Pop();
                     }
                     catch (InvalidOperationException)
                     {
                         return "E";
                     }
-                    Stacknumber.Push(unaryCalculate(number, first));
+                    myStack.Push(calculate(oper, first));
                 }
-                else if (number == "%")
+                else if (oper == "%")
                 {
                     try
                     {
-                        first = Stacknumber.Pop();
-                        second = Stacknumber.Pop();
+                        first = myStack.Pop();
+                        second = myStack.Pop();
                     }
                     catch (InvalidOperationException)
                     {
                         return "E";
                     }
-                    Stacknumber.Push(calculate(number, first, second));
+                    myStack.Push(calculate(oper, first, second));
                 }
-                else if (number == "√")
+                else if (oper == "√")
                 {
                     try
                     {
-                        first = Stacknumber.Pop();
+                        first = myStack.Pop();
                     }
                     catch (InvalidOperationException)
                     {
                         return "E";
                     }
-                    Stacknumber.Push(unaryCalculate(number, first));
+                    myStack.Push(calculate(oper, first));
                 }
             }
 
-            if (Stacknumber.Count > 1)
+            if (myStack.Count > 1)
             {
                 return "E";
             }
 
-            return Stacknumber.Pop();
+            return myStack.Pop();
         }
     }
 }
